@@ -2,23 +2,26 @@ import mongoose, { Schema } from "mongoose"
 import { todoDTO } from "../types/todoDTO"
 
 export interface ITodo extends Document{
-    name:string
+    username:string
     password:string
-    todos:todoDTO[]
+    todos?:todoDTO[]
 }
 
 
 const todoSchema = new Schema<ITodo>({
-   name:{type:String, required:true},
-   password:{type:String,required:true},
+   username:{type:String,},
+   password:{type:String},
    
-   todos:[
+   todos:{
+    type:[
     {
-        title:{type:String, requird:true},
-        group:{type:String, required:true},
-        creted_at:{type: Date, default:Date.now},
-        completed:{type:String,default:false} 
+        title:{type:String},
+        group:{type:String},
+        created_at:{type: Date, default:Date.now},
+        completed:{type:Boolean,default:false} 
     },
-   ]
+   ],
+   default:[]
+    }
 })
 export default mongoose.model<ITodo>("Todo",todoSchema)

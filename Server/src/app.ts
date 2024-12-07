@@ -1,19 +1,21 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import { connect } from 'mongoose'
 import {connectToMongo}from './config/db'
-
+import userRouter from './routers/userRouter'
+import todosRouter from './routers/todoRouter'
 dotenv.config()
+
 const PORT = process.env.PORT || 3000
-const app = express()
-
-
-connectToMongo()
+const app = express()  
 app.use(express.json())
-app.use("/api/user",()=>{})
-app.use("/api/todos",()=>{})
+
+
+ 
+connectToMongo()
+app.use("/api/user",userRouter)
+app.use("/api/todos",todosRouter)
 
 app.listen(PORT, ()=>{
-    console.log(`Server is runnig, visit http://localhost:${PORT}`);
-}) 
+    console.log(`Server is runnig, visit " http://localhost:${PORT} "`);
+})      
