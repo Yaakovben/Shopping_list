@@ -4,6 +4,7 @@ import { changeStatusDTO } from "../types/changeStatusDTO";
 import { todoDTO } from "../types/todoDTO";
 import { deleteDTO } from "../types/DeleteDTO";
 import { getAllDTO } from "../types/getAll";
+import { getAllForGroupDTO } from "../types/getAllForGroupDTO";
 
 
 export const createTodo = async(newtodo:newTodoDTO)=>{
@@ -53,6 +54,17 @@ export const getAllTodo = async(userId:getAllDTO)=>{
         const user = await Todo.findOne({_id:userId.userId})
         if(!user) throw new Error  ("User not found 🧐")
         return user.todos 
+    } catch (err) {
+        throw new Error((err as Error).message);
+    }
+}
+
+export const getAllForGroup = async(getGroup:getAllForGroupDTO)=>{
+    try {
+        const user =await Todo.findOne({_id:getGroup.userId})
+        if(!user) throw new Error ("todo npt found 🧐")
+        const listGruop = user.todos?.filter((t)=>t.group == getGroup.nameGroup)
+        return listGruop
     } catch (err) {
         throw new Error((err as Error).message);
         
