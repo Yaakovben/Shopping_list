@@ -1,5 +1,5 @@
 
-import userDTO from "../types/userDTO";
+import userDTO from "../types/DTO/userDTO";
 import { createNewUser, userLogin } from "../services/userService";
 import { Request, Response } from "express";
 

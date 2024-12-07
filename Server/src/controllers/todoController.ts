@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { newTodoDTO } from "../types/newTodoDTO";
-import { changeStatus, createTodo, deleteTodo, getAllForGroup, getAllTodo } from "../services/todoService";
-import { changeStatusDTO } from "../types/changeStatusDTO";
-import { deleteDTO } from "../types/DeleteDTO";
-import { getAllDTO } from "../types/getAll";
-import { getAllForGroupDTO } from "../types/getAllForGroupDTO";
+import { newTodoDTO } from "../types/DTO/newTodoDTO";
+import { changeStatus, createTodo, deleteTodo, getAllForGroup, getAllNamesGroups, getAllTodo } from "../services/todoService";
+import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
+import { deleteDTO } from "../types/DTO/DeleteDTO";
+import { getAllDTO } from "../types/DTO/getAll";
+import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
+import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
 
 export const addTodo = async(req:Request<any,any,newTodoDTO>,res:Response)=>{
     try {
@@ -43,13 +44,22 @@ export const getAll = async(req:Request<any,any,getAllDTO>,res:Response)=>{
     }
 }
 
+
 export const getGroup = async(req:Request<any,any,getAllForGroupDTO>,res:Response)=>{
     try {
         const listGroup = await getAllForGroup(req.body)
         res.status(200).json(listGroup)
     } catch (err) {
-        res.status(400).json((err as Error).message) 
-        
+        res.status(400).json((err as Error).message)    
     }
 }
+export const getNames = async(req:Request<any,any,getNamesGroupsDTO>,res:Response)=>{
+    try {
+        const listnamesGroup = await getAllNamesGroups(req.body)
+        res.status(200).json(listnamesGroup)
+    } catch (err) {
+        res.status(400).json((err as Error).message)    
+    }
+}
+  
 

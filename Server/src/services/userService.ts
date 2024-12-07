@@ -1,5 +1,5 @@
 import { compare, hash } from "bcrypt";
-import userDTO from "../types/userDTO";
+import userDTO from "../types/DTO/userDTO";
 import Todo from "../models/TodoModel";
 import jwt from 'jsonwebtoken'
 
@@ -35,3 +35,4 @@ export const createNewUser = async(user:userDTO)=>{
         throw new Error ((err as Error).message)
     }
 }
+

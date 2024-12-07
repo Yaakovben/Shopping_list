@@ -1,10 +1,11 @@
-import { newTodoDTO } from "../types/newTodoDTO";
+import { newTodoDTO } from "../types/DTO/newTodoDTO";
 import Todo, { ITodo } from "../models/TodoModel";
-import { changeStatusDTO } from "../types/changeStatusDTO";
-import { todoDTO } from "../types/todoDTO";
-import { deleteDTO } from "../types/DeleteDTO";
-import { getAllDTO } from "../types/getAll";
-import { getAllForGroupDTO } from "../types/getAllForGroupDTO";
+import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
+import { todoDTO } from "../types/DTO/todoDTO";
+import { deleteDTO } from "../types/DTO/DeleteDTO";
+import { getAllDTO } from "../types/DTO/getAll";
+import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
+import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
 
 
 export const createTodo = async(newtodo:newTodoDTO)=>{
@@ -64,9 +65,29 @@ export const getAllForGroup = async(getGroup:getAllForGroupDTO)=>{
         const user =await Todo.findOne({_id:getGroup.userId})
         if(!user) throw new Error ("todo npt found 🧐")
         const listGruop = user.todos?.filter((t)=>t.group == getGroup.nameGroup)
+        if(listGruop?.length === 0) throw new Error  ("The name group not found 🧐")
         return listGruop
     } catch (err) {
         throw new Error((err as Error).message);
         
     }
+}
+
+export const getAllNamesGroups = async(getNamesGroups:getNamesGroupsDTO)=>{
+    try {
+        const user = await Todo.findOne({_id:getNamesGroups.userId}).lean()
+        if(!user) throw new Error ("user npt found 🧐")
+        const listGroups = new Set<string>()
+        user?.todos?.forEach(todo =>{
+            if(todo){ listGroups.add(todo.group)}    
+        })
+        console.log(listGroups);
+        
+        return Array.from(listGroups) 
+    } catch (err) {
+        throw new Error((err as Error).message);
+        
+    }
+
+
 }

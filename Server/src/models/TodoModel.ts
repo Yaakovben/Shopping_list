@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose"
-import { todoDTO } from "../types/todoDTO"
+import { todoDTO } from "../types/DTO/todoDTO"
 
 export interface ITodo extends Document{
     username:string
