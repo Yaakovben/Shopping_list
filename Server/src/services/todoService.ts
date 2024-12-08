@@ -69,7 +69,6 @@ export const getAllForGroup = async(getGroup:getAllForGroupDTO)=>{
         return listGruop
     } catch (err) {
         throw new Error((err as Error).message);
-        
     }
 }
 
@@ -82,7 +81,6 @@ export const getAllNamesGroups = async(getNamesGroups:getNamesGroupsDTO)=>{
             if(todo){ listGroups.add(todo.group)}    
         })
         console.log(listGroups);
-        
         return Array.from(listGroups) 
     } catch (err) {
         throw new Error((err as Error).message);
