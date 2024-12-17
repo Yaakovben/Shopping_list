@@ -5,9 +5,9 @@ const router = Router()
 router.post("/add-todo",addTodo)
 router.put("/change-status",flipStatus)
 router.delete("/delete-todo",removeTodo)
-router.get("/get-all",getAll)
-router.get("/get-for-group",getGroup)
-router.get("/get-names-groups",getNames)
+router.get("/my-todos",getAll)
+router.get("/group-todos",getGroup)
+router.get("/names-groups",getNames)
 
 
 export default router
