@@ -11,11 +11,10 @@ const app = express()
 app.use(express.json())
 
 
- 
 connectToMongo()
 app.use("/api/user",userRouter)
 app.use("/api/todos",todosRouter)
 
 app.listen(PORT, ()=>{
-    console.log(`Server is runnig, visit " http://localhost:${PORT} "`);
+    console.log(`Server is runnig, visit "http://localhost:${PORT}"`);
 })      

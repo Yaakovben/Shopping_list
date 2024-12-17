@@ -5,7 +5,6 @@ import { Request, Response } from "express";
 
 export const register = async(req:Request<any,any,userDTO>,res:Response)=>{
     try {
-        
         const newUser = await createNewUser(req.body)
         res.status(200).json(newUser).send
     } catch (err) {
