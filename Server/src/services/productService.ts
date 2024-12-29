@@ -1,19 +1,18 @@
-import { newTodoDTO } from "../types/DTO/newTodoDTO";
-import Todo, { ITodo } from "../models/TodoModel";
+import { newProductDTO } from "../types/DTO/newProductDTO";
+import Product, { IProduct } from "../models/productModel";
 import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
-import { todoDTO } from "../types/DTO/todoDTO";
 import { deleteDTO } from "../types/DTO/DeleteDTO";
 import { getAllDTO } from "../types/DTO/getAll";
 import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
 import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
 
 
-export const createTodo = async(newtodo:newTodoDTO)=>{
+export const createTodo = async(newProduct:newProductDTO)=>{
     try {
-        if(!newtodo.group || ! newtodo.title || !newtodo.userid) throw new Error("All fields are required❗❗❗");
-        const user  = await Todo.findOne({_id:newtodo.userid})
+        if(!newProduct.group || ! newProduct.title || !newProduct.userid) throw new Error("All fields are required❗❗❗");
+        const user  = await Product.findOne({_id:newProduct.userid})
         if (!user) throw new Error ("User not found 🧐")
-        user.todos?.push(newtodo)
+        user.products?.push(newProduct)
         await user.save()
         return user
     } catch (err) {
@@ -21,13 +20,13 @@ export const createTodo = async(newtodo:newTodoDTO)=>{
     }
 }
 
- export const changeStatus = async(todo:changeStatusDTO)=>{
+ export const changeStatus = async(product:changeStatusDTO)=>{
     try {
-        const user = await Todo.findOne({_id:todo.userId})
+        const user = await Product.findOne({_id:product.userId})
         if(!user) throw new Error ("User not found 🧐")
-        const todoToupdate = user.todos?.find((i:any)=>i._id.toString() == todo.todoId)
-        if(! todoToupdate) throw new Error ("todo npt found 🧐")
-        todoToupdate.completed = !todoToupdate.completed
+        const productToupdate = user.products?.find((i:any)=>i._id.toString() == product.productId)
+        if(! productToupdate) throw new Error ("product not found 🧐")
+        productToupdate.completed = !productToupdate.completed
         await user.save()
         return user
     } catch (err) {
@@ -37,13 +36,13 @@ export const createTodo = async(newtodo:newTodoDTO)=>{
 
 export const deleteTodo = async(todo:deleteDTO)=>{
     try {
-        const user = await Todo.findOne({_id:todo.userId})
+        const user = await Product.findOne({_id:todo.userId})
         if(!user) throw new Error ("User not found 🧐")
-        const todoToDelete = user.todos?.find((i:any)=>i._id.toString() == todo.todoId)
-        if(! todoToDelete) throw new Error ("todo npt found 🧐")
-        user.todos = user.todos?.filter((t:any)=>t._id != todo.todoId)
+        const todoToDelete = user.products?.find((i:any)=>i._id.toString() == todo.productId)
+        if(! todoToDelete) throw new Error ("product npt found 🧐")
+        user.products = user.products?.filter((t:any)=>t._id != todo.productId)
         await user.save()
-        const pdatedUser = await Todo.findOne({_id:todo.userId})
+        const pdatedUser = await Product.findOne({_id:todo.userId})
         return pdatedUser
     } catch (err) {
         throw new Error((err as Error).message);
@@ -52,9 +51,9 @@ export const deleteTodo = async(todo:deleteDTO)=>{
 
 export const getAllTodo = async(userId:getAllDTO)=>{
     try {
-        const user = await Todo.findOne({_id:userId.userId})
+        const user = await Product.findOne({_id:userId.userId})
         if(!user) throw new Error  ("User not found 🧐")
-        return user.todos 
+        return user.products 
     } catch (err) {
         throw new Error((err as Error).message);
     }
@@ -62,9 +61,9 @@ export const getAllTodo = async(userId:getAllDTO)=>{
 
 export const getAllForGroup = async(getGroup:getAllForGroupDTO)=>{
     try {
-        const user =await Todo.findOne({_id:getGroup.userId})
-        if(!user) throw new Error ("todo npt found 🧐")
-        const listGruop = user.todos?.filter((t)=>t.group == getGroup.nameGroup)
+        const user =await Product.findOne({_id:getGroup.userId})
+        if(!user) throw new Error ("product npt found 🧐")
+        const listGruop = user.products?.filter((t)=>t.group == getGroup.nameGroup)
         if(listGruop?.length === 0) throw new Error  ("The name group not found 🧐")
         return listGruop
     } catch (err) {
@@ -74,10 +73,10 @@ export const getAllForGroup = async(getGroup:getAllForGroupDTO)=>{
 
 export const getAllNamesGroups = async(getNamesGroups:getNamesGroupsDTO)=>{
     try {
-        const user = await Todo.findOne({_id:getNamesGroups.userId}).lean()
+        const user = await Product.findOne({_id:getNamesGroups.userId}).lean()
         if(!user) throw new Error ("user npt found 🧐")
         const listGroups = new Set<string>()
-        user?.todos?.forEach(todo =>{
+        user?.products?.forEach(todo =>{
             if(todo){ listGroups.add(todo.group)}    
         })
         console.log(listGroups);

@@ -1,6 +1,6 @@
 import { compare, hash } from "bcrypt";
 import userDTO from "../types/DTO/userDTO";
-import Todo from "../models/TodoModel";
+import Todo from "../models/productModel";
 import jwt from 'jsonwebtoken'
 
 

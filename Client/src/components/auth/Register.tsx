@@ -18,7 +18,7 @@ export default function Register() {
 
   useEffect(() => {
     if (userStatus === "success") {
-      setMessage("Registration successful!");
+      setMessage("Register was successful!");
       setMessageType('success');
       setOpen(true);
     } else if (userStatus === "failed") {
@@ -30,8 +30,13 @@ export default function Register() {
   
   
   useEffect(() => {
-    if (user?.username)
-    navigate("/login")
+    
+    if (user?.username){
+      setTimeout(() => {
+        
+        navigate("/login")
+      },3000)
+    }
      
   }, [user]);
 

@@ -12,8 +12,9 @@
     align-items: center; 
   }
   
+  
   .register {
-    background-color: rgb(242, 242, 242);
+    background-color: rgb(218, 231, 233);
     height: 400px;
     width: 400px;
     display: flex;

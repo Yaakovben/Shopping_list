@@ -1,18 +1,18 @@
 import mongoose, { Schema } from "mongoose"
-import { todoDTO } from "../types/DTO/todoDTO"
+import { productDTO } from "../types/DTO/productDTO"
 
-export interface ITodo extends Document{
+export interface IProduct extends Document{
     username:string
     password:string
-    todos?:todoDTO[]
+    products?:productDTO[]
 }
 
 
-const todoSchema = new Schema<ITodo>({
+const productSchema = new Schema<IProduct>({
    username:{type:String,},
    password:{type:String},
    
-   todos:{
+   products:{
     type:[
     {
         title:{type:String},
@@ -24,4 +24,4 @@ const todoSchema = new Schema<ITodo>({
    default:[]
     }
 })
-export default mongoose.model<ITodo>("Todo",todoSchema)
+export default mongoose.model<IProduct>("product",productSchema)

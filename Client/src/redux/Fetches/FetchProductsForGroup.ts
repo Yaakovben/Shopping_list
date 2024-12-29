@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import registerDTO from "../../types/DTO/registerDTO";
+import registerDTO from "../../types/DTO/userDetailsDTO";
 import { userDTO } from "../../types/DTO/userDTO";
- export const fetchTodoGroup = createAsyncThunk('user/register',
+ export const fetchProductsForGroup = createAsyncThunk('user/register',
     async(user:registerDTO, thunkApi) =>{
         try {
-            const res:Response = await fetch('http://localhost:8200/api/todos/group-todos',{
+            const res:Response = await fetch('http://localhost:8200/api/product/group-todos',{
                 method:'GET',
                 headers:{'Content-Type': 'application/json' },
                 body:JSON.stringify(user)

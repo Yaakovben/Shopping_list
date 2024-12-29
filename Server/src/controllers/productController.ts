@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import { newTodoDTO } from "../types/DTO/newTodoDTO";
-import { changeStatus, createTodo, deleteTodo, getAllForGroup, getAllNamesGroups, getAllTodo } from "../services/todoService";
+import { newProductDTO } from "../types/DTO/newProductDTO";
+import { changeStatus, createTodo, deleteTodo, getAllForGroup, getAllNamesGroups, getAllTodo } from "../services/productService";
 import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
 import { deleteDTO } from "../types/DTO/DeleteDTO";
 import { getAllDTO } from "../types/DTO/getAll";
 import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
 import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
 
-export const addTodo = async(req:Request<any,any,newTodoDTO>,res:Response)=>{
+export const addTodo = async(req:Request<any,any,newProductDTO>,res:Response)=>{
     try {
         const todo = await createTodo(req.body)
         res.status(201).json(todo)

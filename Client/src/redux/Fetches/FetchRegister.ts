@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import registerDTO from "../../types/DTO/registerDTO";
-import { userDTO } from "../../types/DTO/userDTO";
+import userDetailsDTO from "../../types/DTO/userDetailsDTO";
+
+
  export const fetchRegister = createAsyncThunk('user/register',
-    async(user:registerDTO, thunkApi) =>{
+    async(user:userDetailsDTO, thunkApi) =>{
         try {
             const res:Response = await fetch('http://localhost:8200/api/user/register',{
                 method:'POST',

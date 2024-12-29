@@ -1,9 +1,9 @@
-import { ActionReducerMapBuilder, createSlice, isAction, PayloadAction } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { dataStatus } from "../../types/DTO/dataStatus";
 import { userDTO } from "../../types/DTO/userDTO";
 import { fetchRegister } from "../Fetches/FetchRegister";
 import { fetchLogin } from "../Fetches/FetchLogin";
-import { fetchTodoGroup } from "../Fetches/FetchTodoForGroup";
+
 
 interface userState{
     user: userDTO | null,
@@ -40,7 +40,7 @@ export const userSlice = createSlice({
             state.user = null
         })
         // כניסה
-        .addCase(fetchLogin.pending,(state,action)=>{
+        .addCase(fetchLogin.pending,(state)=>{
             state.status = dataStatus.LOADING
             state.error = null
             state.user = null
@@ -56,6 +56,4 @@ export const userSlice = createSlice({
             state.user = null
         }) 
     }
-   
-
   })
