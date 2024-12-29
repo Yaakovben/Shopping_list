@@ -14,7 +14,6 @@ import userDetailsDTO from "../../types/DTO/userDetailsDTO";
                 return thunkApi.rejectWithValue('Cannot login, please try again 🥲')
             }
             const data = await res.json()
-
             localStorage.setItem('token', data.token);
             return thunkApi.fulfillWithValue(data)
         } catch (err) {

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import registerDTO from "../../types/DTO/userDetailsDTO";
-import { userDTO } from "../../types/DTO/userDTO";
+
  export const fetchProductsForGroup = createAsyncThunk('user/register',
     async(user:registerDTO, thunkApi) =>{
         try {
