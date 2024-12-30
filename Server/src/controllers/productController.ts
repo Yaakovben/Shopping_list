@@ -1,11 +1,31 @@
 import { Request, Response } from "express";
 import { newProductDTO } from "../types/DTO/newProductDTO";
-import { changeStatus, createProduct, deleteProduct, getAllForGroup, getAllNamesGroups, getAllProduct } from "../services/productService";
+import { changeStatus, createnewGroup, createProduct, deleteProduct, getAllForGroup, getAllNamesGroups, getAllProduct } from "../services/productService";
 import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
 import { deleteDTO } from "../types/DTO/DeleteDTO";
 import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
 import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
+import { newGroupDTO } from "../types/DTO/newGroupDTO";
 
+
+
+
+
+
+
+
+
+
+
+
+export const addGroup = async(req:Request<any,any,newGroupDTO>,res:Response)=>{
+    try {
+        const group = await createnewGroup(req.body)
+        res.status(201).json(group)
+    } catch (err) {
+        res.status(400).json((err as Error).message)    
+    }
+}
 export const addTodo = async(req:Request<any,any,newProductDTO>,res:Response)=>{
     try {
         const todo = await createProduct(req.body)

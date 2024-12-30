@@ -1,9 +1,27 @@
 import { newProductDTO } from "../types/DTO/newProductDTO";
-import Product, { IProduct } from "../models/productModel";
+import Product, { IProduct } from "../models/buyingGroupModel";
 import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
 import { deleteDTO } from "../types/DTO/DeleteDTO";
 import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
 import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
+import { newGroupDTO } from "../types/DTO/newGroupDTO";
+import buyingGroupModel from "../models/buyingGroupModel";
+
+
+
+
+
+export const createnewGroup = async(newGroup:newGroupDTO)=>{
+    try {
+        console.log(newGroup);
+        if(!newGroup.group_name || ! newGroup.password) throw new Error("All fields are required❗❗❗");
+        const newGroupToAdd = new buyingGroupModel(newGroup)
+        return await newGroupToAdd.save()
+    } catch (err) {
+        throw new Error((err as Error).message) 
+    }
+}
+
 
 
 export const createProduct = async(newProduct:newProductDTO)=>{

@@ -13,13 +13,13 @@ app.use(express.json())
 app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization'],       
 }));
 
 
 connectToMongo()
 app.use("/api/user",userRouter)
-app.use("/api/products",productRouter)
+app.use("/api/buyin-group",productRouter)
 
 app.listen(PORT, ()=>{
     console.log(`Server is runnig, visit "http://localhost:${PORT}"`);

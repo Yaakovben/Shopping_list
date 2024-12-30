@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { addTodo, flipStatus, getAll, getGroup, getNames, removeProduct } from "../controllers/productController";
+import { addGroup, addTodo, flipStatus, getAll, getGroup, getNames, removeProduct } from "../controllers/productController";
 
 const router = Router()
+router.post("/add-group",addGroup)
+
+
 router.post("/add-product",addTodo)
 router.put("/change-status",flipStatus)
 router.delete("/delete-product",removeProduct)
