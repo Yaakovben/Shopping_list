@@ -2,19 +2,25 @@ import { newProductDTO } from "../types/DTO/newProductDTO";
 import Product, { IProduct } from "../models/productModel";
 import { changeStatusDTO } from "../types/DTO/changeStatusDTO";
 import { deleteDTO } from "../types/DTO/DeleteDTO";
-import { getAllDTO } from "../types/DTO/getAll";
 import { getAllForGroupDTO } from "../types/DTO/getAllForGroupDTO";
 import { getNamesGroupsDTO } from "../types/DTO/getNamesGroupsDTO";
 
 
-export const createTodo = async(newProduct:newProductDTO)=>{
+export const createProduct = async(newProduct:newProductDTO)=>{
     try {
-        if(!newProduct.group || ! newProduct.title || !newProduct.userid) throw new Error("All fields are required❗❗❗");
-        const user  = await Product.findOne({_id:newProduct.userid})
+        if(!newProduct.group || ! newProduct.title || !newProduct.userId) throw new Error("All fields are required❗❗❗");
+        const user  = await Product.findOne({_id:newProduct.userId})
         if (!user) throw new Error ("User not found 🧐")
+            const newProductToAdd = {
+                user_id :user._id,
+                title:newProduct.title,
+                group:newProduct.group,
+                created_at:new Date(),
+                completed:false
+            }
         user.products?.push(newProduct)
         await user.save()
-        return user
+        return newProductToAdd
     } catch (err) {
         throw new Error((err as Error).message)   
     }
@@ -28,13 +34,13 @@ export const createTodo = async(newProduct:newProductDTO)=>{
         if(! productToupdate) throw new Error ("product not found 🧐")
         productToupdate.completed = !productToupdate.completed
         await user.save()
-        return user
+        return productToupdate
     } catch (err) {
         throw new Error((err as Error).message);
     }
 }
 
-export const deleteTodo = async(todo:deleteDTO)=>{
+export const deleteProduct = async(todo:deleteDTO)=>{
     try {
         const user = await Product.findOne({_id:todo.userId})
         if(!user) throw new Error ("User not found 🧐")
@@ -49,9 +55,10 @@ export const deleteTodo = async(todo:deleteDTO)=>{
     }
 }
 
-export const getAllTodo = async(userId:getAllDTO)=>{
+export const getAllProduct = async(userId:string)=>{
     try {
-        const user = await Product.findOne({_id:userId.userId})
+        userId = userId.trim();
+        const user = await Product.findOne({_id:userId})
         if(!user) throw new Error  ("User not found 🧐")
         return user.products 
     } catch (err) {

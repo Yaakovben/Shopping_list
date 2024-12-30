@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { addTodo, flipStatus, getAll, getGroup, getNames, removeTodo } from "../controllers/productController";
+import { addTodo, flipStatus, getAll, getGroup, getNames, removeProduct } from "../controllers/productController";
 
 const router = Router()
 router.post("/add-product",addTodo)
 router.put("/change-status",flipStatus)
-router.delete("/delete-product",removeTodo)
-router.get("/my-product",getAll)
+router.delete("/delete-product",removeProduct)
+router.get("/my-product/:userId",getAll)
 router.get("/group-product",getGroup)
 router.get("/names-groups",getNames)
 

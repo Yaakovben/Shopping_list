@@ -1,5 +1,5 @@
 export interface newProductDTO{
-    userid:string,
+    userId:string,
     title:string,
     group:string,
 }
