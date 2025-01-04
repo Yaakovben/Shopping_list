@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addUserToGroup, allMyLists, createnewGroup, deleteGroup} from "../services/buyingGroupService";
+import { addUserToGroup, allMyLists, createnewGroup, deleteList, getAllLists} from "../services/buyingGroupService";
 import { newGroupDTO } from "../types/DTO/newGroupDTO";
 import { leftGroupDTO } from "../types/DTO/leftGroupDTO";
 
@@ -31,10 +31,20 @@ export const getAllMyLists = async(req:Request<any,any,string>,res:Response)=>{
 }
 export const leftGroup = async(req:Request<any,any,leftGroupDTO>,res:Response)=>{
     try {
-        const group = await deleteGroup(req.body)
+        const group = await deleteList(req.body)
         res.status(201).json(group)
     } catch (err) {
         res.status(400).json((err as Error).message)    
+    }
+}
+
+export const allLists = async(req:Request,res:Response)=>{
+    try {
+        const lists = await getAllLists()
+        res.status(200).json(lists)
+    } catch (err) {
+        res.status(400).json((err as Error).message)
+        
     }
 }
 

@@ -61,12 +61,12 @@ export const allMyLists = async(username:string)=>{
         const namesLists = lists.list_products.map((list:any)=>list.group_name)
         return namesLists
     } catch (err) {
-        console.log((err as Error).message);
+        throw new Error ((err as Error).message)
     }
 }
 
 
-export const deleteGroup = async(user:leftGroupDTO)=>{
+export const deleteList = async(user:leftGroupDTO)=>{
     try {
         const userfromdb =await userModel.findOne({_id:user.user_id}).populate({
             path:"list_products",
@@ -84,8 +84,20 @@ export const deleteGroup = async(user:leftGroupDTO)=>{
         await userfromdb.save()
         return userfromdb
     } catch (err) {
-        console.log((err as Error).message);   
+        throw new Error ((err as Error).message)  
     } 
+}
+
+export const getAllLists = async()=>{
+    try {
+        const lists = await buyingGroupModel.find({}).lean()
+        const nameLists = lists.map((name:any)=>name.group_name)
+        return nameLists
+    } catch (err) {
+        throw new Error ((err as Error).message)
+        
+        
+    }
 }
 
 

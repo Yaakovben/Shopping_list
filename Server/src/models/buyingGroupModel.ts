@@ -1,6 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose"
 
 export interface IProduct{
+    _id?:string
     name:string,
     amount:number
     created_at?:Date,
@@ -23,7 +24,7 @@ const buyingGroupSchema = new Schema<IBuyingGroup>({
             name:{type:String},
             amount:{type:Number,default:1},
             created_at:{type: Date, default:Date.now},
-            details:{type:String},
+            details:{type:String,default:null},
             bought:{type:Boolean,default:false} 
         }]
     },

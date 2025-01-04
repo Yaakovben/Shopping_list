@@ -15,7 +15,7 @@ export const register = async(req:Request<any,any,userDTO>,res:Response)=>{
 export const login = async(req:Request<any,any,userDTO>, res:Response)=>{
     try {
         const loggedUser = await userLogin(req.body)
-        res.status(200).json(loggedUser)    
+        res.status(200).json(loggedUser).send    
     } catch (err) {
         res.status(400).json((err as Error).message)
     }

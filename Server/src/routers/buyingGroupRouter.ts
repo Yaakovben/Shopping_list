@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { addGroup, getAllMyLists, joinToGroup, leftGroup} from "../controllers/buyingGroupController";
+import { addGroup, allLists, getAllMyLists, joinToGroup, leftGroup} from "../controllers/buyingGroupController";
 
 const router = Router()
 router.post("/add-group",addGroup)
 router.put("/join-to-group",joinToGroup)
-router.get("/all-lists/:username",getAllMyLists)
+router.get("/all-my-lists/:username",getAllMyLists)
 router.put("/left-group",leftGroup)
+router.get("/get-all-groups",allLists)
 
 
 
