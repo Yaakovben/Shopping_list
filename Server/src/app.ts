@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import {connectToMongo}from './config/db'
 import userRouter from './routers/userRouter'
-import productRouter from './routers/productRouter'
+import productRouter from './routers/buyingGroupRouter'
 dotenv.config()
 
 const PORT = process.env.PORT || 3000

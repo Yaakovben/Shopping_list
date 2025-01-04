@@ -19,7 +19,6 @@ export const userLogin = async(user:userDTO)=>{
         return {...userFromDb, token, password:"*****"}
     } catch (err) {
         throw new Error((err as Error).message)
-        
     }
 }
 
