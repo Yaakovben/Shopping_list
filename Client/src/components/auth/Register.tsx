@@ -46,70 +46,72 @@ export default function Register() {
   };
 
   return (
-    <div className="register">
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Typography component="h1" variant="h5" sx={{ marginBottom: 3 }}>
-            Register
-          </Typography>
-          <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoFocus
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={!username || !password}
-            >
+     <div className="container-register-login">
+      <div className="register-login">
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box sx={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography component="h1" variant="h5" sx={{ marginBottom: 3 }}>
               Register
-            </Button>
+            </Typography>
+            <Box component="form" sx={{ mt: 3 }} onSubmit={handleSubmit}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                disabled={!username || !password}
+              >
+                Register
+              </Button>
+            </Box>
+            <h3>Already have an account? <a href="/login">Login</a></h3>
           </Box>
-          <h3>Already have an account? <a href="/login">Login</a></h3>
-        </Box>
-      </Container>
+        </Container>
 
-      
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={() => setOpen(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert
-          severity={messageType}
-          sx={{
-            width: '100%',
-            borderRadius: 1,
-            boxShadow: 3,
-            fontWeight: 'bold',
-            padding: '8px',
-          }}
+
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
-          {message}
-        </Alert>
-      </Snackbar>
+          <Alert
+            severity={messageType}
+            sx={{
+              width: '100%',
+              borderRadius: 1,
+              boxShadow: 3,
+              fontWeight: 'bold',
+              padding: '8px',
+            }}
+          >
+            {message}
+          </Alert>
+        </Snackbar>
+      </div>
     </div>
   );
 }

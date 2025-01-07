@@ -74,7 +74,7 @@ export const getAllTheProduct = async(group:string)=>{
         if(!products) throw new Error("The list not found")
         console.log(products);
         
-        return products
+        return products.lists_products
     } catch (err) {
         throw new Error((err as Error).message)    
     }

@@ -9,11 +9,4 @@ router.put("/left-group",leftGroup)
 router.get("/get-all-groups",allLists)
 
 
-
-// router.put("/change-status",flipStatus)
-// router.delete("/delete-product",removeProduct)
-// router.get("/my-product/:userId",getAll)
-// router.get("/group-product",getGroup)
-// router.get("/names-groups",getNames)
-
 export default router

@@ -5,7 +5,7 @@ import userDetailsDTO from "../../types/DTO/userDetailsDTO";
  export const fetchRegister = createAsyncThunk('user/register',
     async(user:userDetailsDTO, thunkApi) =>{
         try {
-            const res:Response = await fetch('http://localhost:8200/api/user/register',{
+            const res:Response = await fetch('http://localhost:7160/api/user/register',{
                 method:'POST',
                 headers:{'Content-Type': 'application/json' },
                 body:JSON.stringify(user)
