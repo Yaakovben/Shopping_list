@@ -72,7 +72,7 @@ export const getAllTheProduct = async(group:string)=>{
         .select("lists_products")
         .select("-_id")
         if(!products) throw new Error("The list not found")
-        console.log(products);
+       
         
         return products.lists_products
     } catch (err) {

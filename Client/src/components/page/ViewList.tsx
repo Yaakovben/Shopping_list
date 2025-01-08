@@ -3,13 +3,18 @@ import { fetchGetMyLists } from '../../Fetches/allMyList'
 import { Box, FormControl, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import productDTO from '../../types/DTO/productDTO';
 import { fetchchangeStatus } from '../../Fetches/changeStatus';
+import { useAppSelector } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
+import { socket } from '../../main';
 
 export default function ViewList() {
-
-    const username = localStorage.getItem("username");
-    const[myLists,setMyLists]= useState([])
-    const[selectedList,setSelectedList]= useState("")
-    const[products,setProducts] = useState<productDTO[]>([])
+  const user = useAppSelector((state) => state.user.user);
+  const navigate = useNavigate();
+  const username = localStorage.getItem("username");
+  const[myLists,setMyLists]= useState([])
+  const[selectedList,setSelectedList]= useState("")
+  const[products,setProducts] = useState<productDTO[]>([])
+  const[addedProduct,setAddedProduct] = useState(0)
 
 
     const fetchMyLists = async()=>{
@@ -20,27 +25,51 @@ export default function ViewList() {
          setSelectedList( data[0])
          const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${data[0]}`);
             setProducts(productsData);
-            console.log(products);
          }else{
           setSelectedList("")
          }
-        }  
-        catch (err) {
-          console.log(err);
-        }}
-
-        useEffect(()=>{
-          fetchMyLists()
-         
-       },[])
-
-    
+      }catch (err) {
+        console.log(err);
+      }} 
       
+      useEffect(() => {
+        if (!user?.username){
+          navigate("/login")
+        }
+      },[user]);
+
+
+      useEffect(()=>{
+        fetchMyLists()
+      },[])
+
+
+      useEffect(()=>{
+        const updatedProducts = async ()=>{
+          if(selectedList !==""){
+          const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${selectedList}`);
+          setProducts(productsData);
+          }
+        }
+        updatedProducts()
+      },[addedProduct])
+
+
+      useEffect(() => {
+        // התחבר לחדר (החדר הוא שמו של הרשימה)
+        if (selectedList !="") {
+          socket.emit('joinRoom', selectedList);  // שלח את שם החדר   
+        }
+        return () => {
+          socket.emit('leaveRoom', selectedList);  // עזוב את החדר כשיוצאים
+        };
+      }, [selectedList]);
+
 
        const handleChange = async (event: SelectChangeEvent) => {
         const selectedValue = event.target.value as string; 
         setSelectedList(event.target.value as string);
-        if (selectedValue && selectedValue !== "") {
+        if (selectedValue !== "") {
           try {
             const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${selectedValue}`);
             setProducts(productsData);
@@ -61,8 +90,8 @@ export default function ViewList() {
         }
       }
       
-        
       
+
   return (
     <div className='view-list'>
       <h1 className='title'>רשימת קניות :{selectedList===""?"לא נבחרה רשימה":selectedList}</h1>
@@ -105,8 +134,7 @@ export default function ViewList() {
               <TableCell>{p.name}</TableCell>
               <TableCell>{p.bought?"✅":"❌"}</TableCell>
               <TableCell>✏️</TableCell>
-              <TableCell>🗑️</TableCell>
-              
+              <TableCell>🗑️</TableCell>   
             </TableRow>
           )):   
           <TableRow>
@@ -117,11 +145,7 @@ export default function ViewList() {
         </TableBody>
       </Table>
     </TableContainer>
-  
-    
-
-
-    </div>
+  </div>
   )
 }
 
