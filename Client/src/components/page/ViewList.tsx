@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchGetMyLists } from '../../Fetches/allMyList'
 import { Box, FormControl, InputLabel, MenuItem, Paper, Select, SelectChangeEvent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import productDTO from '../../types/DTO/productDTO';
+import { fetchchangeStatus } from '../../Fetches/changeStatus';
 
 export default function ViewList() {
 
@@ -15,7 +16,14 @@ export default function ViewList() {
       try {
          const data = await fetchGetMyLists(`http://localhost:7160/api/buyin-group/all-my-lists/${username}`)
          setMyLists(data)
-         setSelectedList(data.length> 0 ? data[0]:"")
+         if(data.length> 0){
+         setSelectedList( data[0])
+         const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${data[0]}`);
+            setProducts(productsData);
+            console.log(products);
+         }else{
+          setSelectedList("")
+         }
         }  
         catch (err) {
           console.log(err);
@@ -23,31 +31,38 @@ export default function ViewList() {
 
         useEffect(()=>{
           fetchMyLists()
-          console.log(myLists);
-          console.log(selectedList);
-          
+         
        },[])
 
-       const handleChange =async (event: SelectChangeEvent) => {
-        const selectedValue = event.target.value as string;
-        setSelectedList(selectedValue);
-        if(selectedList && selectedValue !== ""){
-          try {
-            const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${selectedList}`)
-            setProducts(productsData)
-          } catch (error) {
-            console.log(error,"lolo");
-            
-          }
-        }else{
-          setProducts([])
-        }
-       
-      };
-        
+    
       
 
-    
+       const handleChange = async (event: SelectChangeEvent) => {
+        const selectedValue = event.target.value as string; 
+        setSelectedList(event.target.value as string);
+        if (selectedValue && selectedValue !== "") {
+          try {
+            const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${selectedValue}`);
+            setProducts(productsData);
+          } catch (error) {
+            console.log("Error fetching products:", error);
+          }
+        } else {
+          setProducts([]);
+        }
+      };
+
+      const changeStatus = async(productId:string)=>{
+        try {
+          const changeProduct = await fetchchangeStatus("http://localhost:7160/api/product/change-status",selectedList,productId)
+          setProducts(changeProduct.lists_products)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      
+        
+      
   return (
     <div className='view-list'>
       <h1 className='title'>רשימת קניות :{selectedList===""?"לא נבחרה רשימה":selectedList}</h1>
@@ -75,23 +90,30 @@ export default function ViewList() {
             <TableCell>הערה</TableCell>
             <TableCell>כמות</TableCell>
             <TableCell>מוצר</TableCell>
+            <TableCell>נקנה</TableCell>
             <TableCell>ערוך</TableCell>
             <TableCell>מחק</TableCell>
 
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.length >0 && products.map((p) => (
-            <TableRow key={p._id}>
+          {products.length >0 ? products.map((p) => (
+            <TableRow key={p._id} onClick={()=>changeStatus(p._id)} className={p.bought?"bought":"unbought"}>
               <TableCell>{p.created_at}</TableCell>
               <TableCell>{p.details == null ? "אין פרטים נוספים":p.details}</TableCell>
               <TableCell>{p.amount}</TableCell>
               <TableCell>{p.name}</TableCell>
+              <TableCell>{p.bought?"✅":"❌"}</TableCell>
               <TableCell>✏️</TableCell>
               <TableCell>🗑️</TableCell>
               
             </TableRow>
-          ))}
+          )):   
+          <TableRow>
+            <TableCell colSpan={7} align="center" style={{ fontSize: "18px", fontWeight: "bold", color: "#888" }}>
+              רשימה זו ריקה
+            </TableCell>
+          </TableRow>}
         </TableBody>
       </Table>
     </TableContainer>

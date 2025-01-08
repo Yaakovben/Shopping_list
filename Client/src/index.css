@@ -7,6 +7,7 @@
   body {
     margin: 0;
     height: 100vh; 
+    background-color: #FDFCDC;
     
   }
   .container-register-login{
@@ -35,5 +36,54 @@
 
   .title{
     font-size: 50px;
+  }
+  .MuiTableContainer-root {
+    max-height: 500px; 
+    overflow-y: auto; /* גלילה אנכית בלבד */
+    border: 2px solid #A8D5BA; /* מסגרת מסביב לטבלה */
+    border-radius: 5px;
+    border-collapse: collapse; /* מבטל כפילויות גבולות */
+  }
+  
+  .MuiTableHead-root th {
+    position: sticky; /* הכותרות יישארו קבועות */
+    top: 0; /* מיקום הכותרות */
+    background-color: #A8D5BA; 
+    color: #000; /* צבע הטקסט */
+    font-weight: bold; /* הדגשת הכותרות */
+    text-align: center; /* יישור הטקסט */
+    z-index: 1; /* להבטיח שהכותרות יופיעו מעל שאר התאים */
+    border-right: 1px solid #A8D5BA; /* גבול בין כותרות */
+    border-bottom: 2px solid #000; /* מסגרת תחתונה לכותרות */
+    padding: 10px; /* ריווח פנימי */
+  }
+  
+  .MuiTableBody-root {
+    border-top: 15px solid #FDFCDC; /* רווח בין כותרות לתוכן */
+  }
+  
+  .MuiTableBody-root tr {
+    height: 50px; 
+    transition: background-color 0.3s ease; /* אפקט חלק בשינוי צבע */
+  }
+  
+  .MuiTableBody-root td {
+    text-align: center; /* יישור טקסט במרכז */
+    vertical-align: middle; /* יישור טקסט אנכי */
+    padding: 10px; /* ריווח פנימי */
+    border-right: 1px solid #A8D5BA; /* גבול בין תאים לאורך */
+    border-bottom: 1px solid #A8D5BA; /* פסים חוצצים בין השורות */
+  }
+  
+  .bought {
+    background-color: #28A745; /* צבע לתא שנקנה */
+    color: #fff; /* צבע טקסט */
+    text-align: center; /* יישור טקסט במרכז */
+  }
+  
+  .unbought {
+    background-color: #FF6F61; /* צבע לתא שלא נקנה */
+    color: #fff; /* צבע טקסט */
+    text-align: center; /* יישור טקסט במרכז */
   }
   
