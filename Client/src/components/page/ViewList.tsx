@@ -16,7 +16,10 @@ export default function ViewList() {
   const[products,setProducts] = useState<productDTO[]>([])
   const[addedProduct,setAddedProduct] = useState(0)
 
-
+  socket.on("theUpdatedList",(products)=>{
+    setProducts(products)
+   
+  })
     const fetchMyLists = async()=>{
       try {
          const data = await fetchGetMyLists(`http://localhost:7160/api/buyin-group/all-my-lists/${username}`)
@@ -44,24 +47,27 @@ export default function ViewList() {
       },[])
 
 
+      // useEffect(()=>{
+      //   const updatedProducts = async ()=>{
+      //     if(selectedList !==""){
+      //     const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${selectedList}`);
+      //     setProducts(productsData);
+      //     }
+      //   }
+      //   updatedProducts()
+      // },[addedProduct])
+
       useEffect(()=>{
-        const updatedProducts = async ()=>{
-          if(selectedList !==""){
-          const productsData = await fetchGetMyLists(`http://localhost:7160/api/product/get-all-products/${selectedList}`);
-          setProducts(productsData);
-          }
-        }
-        updatedProducts()
-      },[addedProduct])
+
+      },[products])
 
 
       useEffect(() => {
-        // התחבר לחדר (החדר הוא שמו של הרשימה)
         if (selectedList !="") {
-          socket.emit('joinRoom', selectedList);  // שלח את שם החדר   
+          socket.emit('joinRoom', selectedList);    
         }
         return () => {
-          socket.emit('leaveRoom', selectedList);  // עזוב את החדר כשיוצאים
+          socket.emit('leaveRoom', selectedList);  
         };
       }, [selectedList]);
 
@@ -85,6 +91,7 @@ export default function ViewList() {
         try {
           const changeProduct = await fetchchangeStatus("http://localhost:7160/api/product/change-status",selectedList,productId)
           setProducts(changeProduct.lists_products)
+          socket.emit('productUpdated',selectedList)
         } catch (err) {
           console.log(err);
         }
