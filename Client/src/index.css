@@ -8,6 +8,7 @@
     margin: 0;
     height: 100vh; 
     background-color: #FDFCDC;
+    direction: rtl;
     
   }
   .container-register-login{
@@ -28,10 +29,13 @@
     align-items: center;
   }
   .view-list{
+    margin-top: 5px;
+    height: 92vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+   
   }
 
   .title{
@@ -40,7 +44,7 @@
   .MuiTableContainer-root {
     max-height: 500px; 
     overflow-y: auto; /* גלילה אנכית בלבד */
-    border: 2px solid #A8D5BA; /* מסגרת מסביב לטבלה */
+    border: 4px solid  #f8e518; /* מסגרת מסביב לטבלה */
     border-radius: 5px;
     border-collapse: collapse; /* מבטל כפילויות גבולות */
   }
@@ -48,18 +52,18 @@
   .MuiTableHead-root th {
     position: sticky; /* הכותרות יישארו קבועות */
     top: 0; /* מיקום הכותרות */
-    background-color: #A8D5BA; 
+    background-color:   #f8e518; 
     color: #000; /* צבע הטקסט */
     font-weight: bold; /* הדגשת הכותרות */
     text-align: center; /* יישור הטקסט */
     z-index: 1; /* להבטיח שהכותרות יופיעו מעל שאר התאים */
     border-right: 1px solid #A8D5BA; /* גבול בין כותרות */
-    border-bottom: 2px solid #000; /* מסגרת תחתונה לכותרות */
+
     padding: 10px; /* ריווח פנימי */
   }
   
   .MuiTableBody-root {
-    border-top: 15px solid #FDFCDC; /* רווח בין כותרות לתוכן */
+    border-top: 10px solid #FDFCDC; /* רווח בין כותרות לתוכן */
   }
   
   .MuiTableBody-root tr {
@@ -86,4 +90,16 @@
     color: #fff; /* צבע טקסט */
     text-align: center; /* יישור טקסט במרכז */
   }
+
+
+  .listItem:hover {
+    background-color:  #f8e518; 
+    color: white;  
+  }
+  .listItem:active {
+    transform: scale(0.98); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.2)
+  }
+  
   

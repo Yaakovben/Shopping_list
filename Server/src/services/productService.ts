@@ -43,6 +43,7 @@ export const changeTheDetailsAndAmount = async(product:changeDetailsDTO)=>{
         if(!productToChange) throw new Error("The product not found")
         productToChange.amount = product.amount
         productToChange.details = product.details
+        productToChange.name = product.name
         await list.save()
         return list 
     } catch (err) {
