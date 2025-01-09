@@ -17,6 +17,7 @@ import userDetailsDTO from "../../types/DTO/userDetailsDTO";
             const data = await res.json()
             localStorage.setItem('token', data.token);
             localStorage.setItem('username',data.username)
+            localStorage.setItem(`user_id`,data._id)
             return thunkApi.fulfillWithValue(data)
         } catch (err) {
             return  thunkApi.rejectWithValue('Cannot login, please try again 🥲');      

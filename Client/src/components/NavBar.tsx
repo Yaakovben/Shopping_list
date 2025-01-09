@@ -69,7 +69,7 @@ export default function NavBar() {
                         <ListItemText primary="אודות" onClick={()=>handle("/about")}/>
                     </ListItem>
                     <ListItem className="listItem" >
-                        <ListItemText primary="התנתק"onClick={() => dispatch(userSlice.actions.logout())}/>
+                        <ListItemText primary="התנתק"onClick={() => {dispatch(userSlice.actions.logout()),localStorage.removeItem("username")}}/>
                     </ListItem>
                     
                 </List>

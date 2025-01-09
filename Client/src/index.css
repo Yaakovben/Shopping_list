@@ -80,15 +80,15 @@
   }
   
   .bought {
-    background-color: #28A745; /* צבע לתא שנקנה */
-    color: #fff; /* צבע טקסט */
-    text-align: center; /* יישור טקסט במרכז */
+    background-color: #28A745;
+    color: #fff;
+    text-align: center;
   }
   
   .unbought {
-    background-color: #FF6F61; /* צבע לתא שלא נקנה */
-    color: #fff; /* צבע טקסט */
-    text-align: center; /* יישור טקסט במרכז */
+    background-color: #FF6F61; 
+    color: #fff; 
+    text-align: center; 
   }
 
 
@@ -101,5 +101,57 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     transform: scale(1.2)
   }
+
+  .members-list {
+    min-height: 150px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 16px;
+  }
+
+  .group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .card-group{
+    max-height: 350px;
+    
+    margin: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    align-items: center;
+    }
+    .all-card{
+      min-width: 98%;
+      min-height: 35vh;
+      display: flex;
+      max-height: 450px; 
+      overflow-y: auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap; 
+      justify-content: center;
+      background-color: #f0faca;
+      border: 4px solid  #f8e518;
+      margin: 5px;
+      
+    }
+
+
+
+    
+  
+  
+
+  
   
   

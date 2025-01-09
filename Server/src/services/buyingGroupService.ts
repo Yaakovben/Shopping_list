@@ -55,11 +55,16 @@ export const allMyLists = async(username:string)=>{
     try {
         const lists = await userModel.findOne({username:username}).populate({
             path:"list_products"
-            ,model:"Buying-group"
-            ,select:"group_name"}).lean()
+            ,model:"Buying-group",
+            populate: {
+                path: "group_members", 
+                model: "User", 
+                select: "username", 
+            },
+            }).lean()
         if(!lists) throw new Error ("User not found 🧐")
         const namesLists = lists.list_products.map((list:any)=>list.group_name)
-        return namesLists
+        return {namesLists:namesLists,lists:lists}
     } catch (err) {
         throw new Error ((err as Error).message)
     }

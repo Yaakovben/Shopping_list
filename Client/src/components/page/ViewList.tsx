@@ -57,9 +57,10 @@ export default function ViewList() {
 
   const fetchMyLists = async () => {
     try {
-      const data = await fetchGetMyLists(
+      const res = await fetchGetMyLists(
         `http://localhost:7160/api/buyin-group/all-my-lists/${username}`
       );
+      const data = res.namesLists
       setMyLists(data);
       if (data.length > 0) {
         setSelectedList(data[0]);
